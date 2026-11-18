@@ -5,7 +5,7 @@ We plan to upload useful but nontrivial code for Concurrency and Communications 
 
 ### Current content
 
-`bm_posem` 
+`bm_posem` Peak-load benchmarks for POSIX semaphores in Linux kernel
 
 ### References
 
