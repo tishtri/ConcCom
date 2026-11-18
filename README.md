@@ -1,33 +1,21 @@
-## Peak-load benchmarks for POSIX semaphores in Linux kernel  ##
+## Some code for Concurrency and Communications ##
 
-To obtain a peak-load benchmark for POSIX semaphores in Linux, we emulate the PVZ machine based peak-load benchmark described in [1] and implemented in [2], some theoretical background provided in [3].
-
-We emulate System V Semaphores (SVS) by POSIX semaphores. Actually, we emulate a restricted set of functions - semget(), semctl(), semop() - which is used in the PVZ machine specification. In this simplified emulation, only one array of semaphores can be created, the following commands of semctl() are implemented - GETALL, SETALL, IPC\_RMID. The only correction imposed onto the PVZ machine is adding a suffix "\_posem" to all SVS functions calls. It actually switches SVS processing to our functions, specified on the top of PVZ machine. These functions issue POSIX semaphores system calls to emulate SVS functions, an array of POSIX semaphores created. 
-
-We use a lock to implement semop(): sem\_wait(&lock) - semop() emulation - sem\_post(&lock). We read semaphores, check and apply `sops` one-by-one on an auxiliary array, initialized with the current semaphores values. If the check is satisfied, we implement `sops` via sem\_wait() and sem\_post(). If not satisfied, we repeat sem\_post(&lock) and sem\_wait(&lock) and re-check, supposing POSIX semaphores environment treats threads fairly. 
-
-We run the System V semaphores (SVS) peak-load benchmarks on the emulated PVZ machine for threads with sparse matrix format of data as described in [2] and coded in [3] - run PTN as PVZ machine [2] using System V semaphores with semop() and threads created by pthread() [3] with sparse matrix specification of all `sops`.
+We plan to upload useful but nontrivial code for Concurrency and Communications (CC) to this repository.
 
 
-### Benchmark POSIX semaphores in Linux kernel
+### Current content
 
-Edit PVZ data file name in `#include` within `pvzm_posem_thread.c`
-
-Compile and run `pvzm_posem_thread`
-
-    >gcc -O3 -o pvzm_posem_thread pvzm_posem_thread.c -pthread
-    >./pvzm_posem_thread
-    or
-    >./pvzm_posem_thread 1
-
-A parameter (with the range 0-3) specifies the output detail level.
-
+`bm_posem` 
 
 ### References
 
-1) Zaitsev, Dmitry and Naluba, Richard, PVZ Machine as a Formal System Based on Unix-Linux fork() and semop() System Calls (July 08, 2026). Preprint available at SSRN: [http://dx.doi.org/10.2139/ssrn.7606379]
+Roman N. Guliak, Tatiana R. Shmeleva, Dmitry A. Zaitsev, Chapter 19 - Verification of MPI programs via compilation into Petri nets, Editor(s): Pethuru Raj, Pushan Kumar Dutta, Peter Han Joo Chong, Houbing Herbert Song, Dmitry A. Zaitsev, Applied Graph Data Science, Morgan Kaufmann, 2025, Pages 245-269, ISBN 9780443296543, [https://doi.org/10.1016/B978-0-443-29654-3.00005-3]
 
-2) [https://github.com/DimaZaitsev/SNCtools/bm5000x]
+Zaitsev, D. A., Zhang, Z., Liu, D., & Shmeleva, T. R. (2025). Notation for mass parallel algorithms: computing Petri net state space on GPU case study. International Journal of Parallel, Emergent and Distributed Systems, 40(2), 101–115. https://doi.org/10.1080/17445760.2024.2431545
 
-3) Zaitsev, D. A. (2026). Computing on semaphores of Dijkstra with place-transition nets. International Journal of Parallel, Emergent and Distributed Systems, 41(3), 291–320. [https://doi.org/10.1080/17445760.2026.2615010]
+Z. Zhou, D. Liu, T. R. Shmeleva and D. A. Zaitsev, "Analysis of Bitcoin Fork by Colored Petri Nets," 2024 IEEE International Conference on Systems, Man, and Cybernetics (SMC), Kuching, Malaysia, 2024, pp. 4291-4296, [doi: 10.1109/SMC54092.2024.10831492](https://doi.org/10.1109/SMC54092.2024.10831492)
+
+D. A. Zaitsev, T. R. Shmeleva and J. F. Groote, "Verification of hypertorus communication grids by infinite petri nets and process algebra," in IEEE/CAA Journal of Automatica Sinica, vol. 6, no. 3, pp. 733-742, May 2019, [doi: 10.1109/JAS.2019.1911486.](https://doi.org/10.1109/JAS.2019.1911486)
+
+Zaitsev, D.A., Shmeleva, T.R. Verification of hypercube communication structures via parametric Petri nets1 . Cybern Syst Anal 46, 105–114 (2010). [https://doi.org/10.1007/s10559-010-9189-y]
 
