@@ -27,7 +27,7 @@ A parameter (with the range 0-3) specifies the output detail level.
 
 1) Zaitsev, Dmitry and Naluba, Richard, PVZ Machine as a Formal System Based on Unix-Linux fork() and semop() System Calls (July 08, 2026). Preprint available at SSRN: [http://dx.doi.org/10.2139/ssrn.7606379]
 
-2) [https://github.com/DimaZaitsev/SNCtools/bm5000x]
+2) Dmitry Zaitsev, Peak-load benchmarks for operating systems: Linux runs over 5,000× slower than our virtual machines, [https://github.com/dimazaitsev/SNCtools/tree/main/bm5000x]
 
 3) Zaitsev, D. A. (2026). Computing on semaphores of Dijkstra with place-transition nets. International Journal of Parallel, Emergent and Distributed Systems, 41(3), 291–320. [https://doi.org/10.1080/17445760.2026.2615010]
 
